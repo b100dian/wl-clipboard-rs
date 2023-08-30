@@ -15,7 +15,6 @@
 # Please submit bugfixes or comments via https://bugs.opensuse.org/
 #
 
-
 %global rustflags '-Clink-arg=-Wl,-z,relro,-z,now'
 
 Name:           wl-clipboard-rs
@@ -29,7 +28,8 @@ Source1:        vendor.tar.gz
 Source2:        cargo_config
 BuildRequires:  cargo-packaging
 BuildRequires:  pkgconfig
-BuildRequires:  rust+cargo >= 1.61
+BuildRequires:  rust >= 1.52
+BuildRequires:  cargo >= 1.52
 BuildRequires:  wayland-devel
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-cursor)
@@ -43,7 +43,7 @@ Conflicts:      wl-clipboard
 A safe Rust crate for working with the Wayland clipboard.
 
 %prep
-%autosetup -a1
+%autosetup -a1 -n %{name}-%{version}/upstream
 mkdir .cargo
 cp %{SOURCE2} .cargo/config
 cp -rv vendor wl-clipboard-rs-tools/vendor
