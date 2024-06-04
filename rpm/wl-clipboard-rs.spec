@@ -1,7 +1,7 @@
 #
 # spec file for package wl-clipboard-rs
 #
-# Copyright (c) 2022 SUSE LLC
+# Copyright (c) 2024 SUSE LLC
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -15,22 +15,20 @@
 # Please submit bugfixes or comments via https://bugs.opensuse.org/
 #
 
-%global rustflags '-Clink-arg=-Wl,-z,relro,-z,now'
 
 Name:           wl-clipboard-rs
-Version:        0.7.0
+Version:        0.8.1
 Release:        0
 Summary:        Wayland Clipboard Utility in Rust
 License:        Apache-2.0 AND MIT
 URL:            https://github.com/YaLTeR/wl-clipboard-rs
-Source0:        %{name}-%{version}.tar.gz
-Source1:        vendor.tar.gz
-Source2:        cargo_config
+Source0:        https://github.com/YaLTeR/wl-clipboard-rs/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source1:        vendor.tar.zst
+BuildRequires:  cargo >= 1.61
 BuildRequires:  cargo-packaging
 BuildRequires:  pkgconfig
-BuildRequires:  rust >= 1.52
-BuildRequires:  cargo >= 1.52
 BuildRequires:  wayland-devel
+BuildRequires:  zstd
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-cursor)
 BuildRequires:  pkgconfig(wayland-protocols) >= 1.17
@@ -43,13 +41,7 @@ Conflicts:      wl-clipboard
 A safe Rust crate for working with the Wayland clipboard.
 
 %prep
-%autosetup -a1 -n %{name}-%{version}/upstream
-mkdir .cargo
-cp %{SOURCE2} .cargo/config
-cp -rv vendor wl-clipboard-rs-tools/vendor
-pushd wl-clipboard-rs-tools
-mkdir .cargo
-cp -v %{SOURCE2} .cargo/config
+%autosetup -a1
 
 %build
 pushd wl-clipboard-rs-tools
@@ -70,3 +62,4 @@ find %{buildroot}%{_prefix} -type f \( -name ".crates.toml" -or -name ".crates2.
 %doc README.md CHANGELOG.md doc/index.html
 
 %changelog
+
