@@ -27,6 +27,7 @@ Source1:        vendor.tar.xz
 Source2:        cargo_config
 BuildRequires:  cargo >= 1.61
 BuildRequires:  cargo-packaging
+BuildRequires:  cargo-auditable
 BuildRequires:  pkgconfig
 BuildRequires:  wayland-devel
 BuildRequires:  zstd
