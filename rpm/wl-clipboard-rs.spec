@@ -25,7 +25,7 @@ URL:            https://github.com/YaLTeR/wl-clipboard-rs
 Source0:        https://github.com/YaLTeR/wl-clipboard-rs/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:        vendor.tar.xz
 Source2:        cargo_config
-BuildRequires:  cargo >= 1.61
+BuildRequires:  cargo >= 1.75
 BuildRequires:  cargo-packaging
 BuildRequires:  cargo-auditable
 BuildRequires:  pkgconfig
@@ -47,7 +47,7 @@ A safe Rust crate for working with the Wayland clipboard.
 %prep
 %autosetup -a1 -n %{name}-%{version}/upstream
 tar -xJf %{SOURCE1}
-mkdir .cargo
+mkdir -p .cargo
 cp %{SOURCE2} .cargo/config
 
 %ifarch %arm32
@@ -99,6 +99,7 @@ export RANLIB="gcc-ranlib"
 export PKG_CONFIG="pkg-config"
 
 pushd wl-clipboard-rs-tools
+%define _smp_mflags -j1
 CARGO_INCREMENTAL=0 %{cargo_build}
 
 %install
