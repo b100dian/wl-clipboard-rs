@@ -104,7 +104,7 @@ CARGO_INCREMENTAL=0 %{cargo_build}
 
 %install
 pushd wl-clipboard-rs-tools
-CARGO_INCREMENTAL=0 %{cargo_install}
+CARGO_INCREMENTAL=0 %{cargo_install} --target %{SB2_TARGET}
 
 # Removing unnecessary crate related files
 find %{buildroot}%{_prefix} -type f \( -name ".crates.toml" -or -name ".crates2.json" \) -delete -print
